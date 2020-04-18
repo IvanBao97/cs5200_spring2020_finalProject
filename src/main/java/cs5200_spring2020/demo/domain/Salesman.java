@@ -26,6 +26,11 @@ public class Salesman extends User {
 
     public Salesman() { }
 
+    public Salesman(String username, String password, String email, String name, Boolean enable, String phone, Role role, int foundYear) {
+        super(username, password, email, name, enable, phone, role);
+        this.foundYear = foundYear;
+    }
+
     public Address getAddress() {
         return address;
     }

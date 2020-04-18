@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class User {
 
-    public enum Role {Customer, Salesman, Administrator}
+    public enum Role {Customer, Salesman, Admin}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +23,16 @@ public class User {
     private Role role;
 
     public User() {}
+
+    public User(String username, String password, String email, String name, Boolean enable, String phone, Role role) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.name = name;
+        this.enable = enable;
+        this.phone = phone;
+        this.role = role;
+    }
 
     public Boolean getEnable() {
         return enable;

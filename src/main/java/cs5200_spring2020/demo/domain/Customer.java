@@ -16,6 +16,12 @@ public class Customer extends User{
 
     public Customer() { }
 
+    public Customer(String username, String password, String email, String name, Boolean enable, String phone, Role role, int budget, CarType preferType) {
+        super(username, password, email, name, enable, phone, role);
+        this.budget = budget;
+        this.preferType = preferType;
+    }
+
     public List<Message> getMessages() {
         return messages;
     }
