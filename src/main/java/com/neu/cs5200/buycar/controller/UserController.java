@@ -50,6 +50,21 @@ public class UserController {
         return userRepository.save(user);
     }
 
+    //GetUserProfile
+    @GetMapping("/api/profile")
+    public User currentUserName(Principal principal){
+        String username;
+        User user;
+        try{
+            username = principal.getName();
+            user = userRepository.findUserByUsername(username).get(0);
+        } catch (Exception e){
+            username = "";
+            return null;
+        }
+        return user;
+    }
+
     //FindAllUsers
     @GetMapping("/api/user")
     public List<User> findAllUsers(){
@@ -83,12 +98,5 @@ public class UserController {
         userRepository.deleteUserById(uid);
     }
 
-    //
-    @GetMapping("/api/profile")
-    public User currentUserName(Principal principal){
-        String name;
-        User user;
-        
-    }
 
 }
