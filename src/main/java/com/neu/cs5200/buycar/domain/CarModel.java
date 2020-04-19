@@ -1,5 +1,7 @@
 package com.neu.cs5200.buycar.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -9,19 +11,29 @@ public class CarModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String VIN;
     private int year;
     private String name;
     private String color;
+    private String vin;
     private Customer.CarType type;
 
     @ManyToOne
+    @JsonIgnore
     private Maker maker;
 
     @ManyToMany(mappedBy = "carModels")
     private List<Salesman> salesmen;
 
-    public CarModel() { }
+    public CarModel() {
+    }
+
+    public String getVin() {
+        return vin;
+    }
+
+    public void setVin(String vin) {
+        this.vin = vin;
+    }
 
     public int getId() {
         return id;
@@ -29,14 +41,6 @@ public class CarModel {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getVIN() {
-        return VIN;
-    }
-
-    public void setVIN(String VIN) {
-        this.VIN = VIN;
     }
 
     public int getYear() {
