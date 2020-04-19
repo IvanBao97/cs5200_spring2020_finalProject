@@ -1,5 +1,7 @@
 package cs5200_spring2020.demo.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,9 +12,11 @@ public class Message {
     private int id;
     private String text;
 
+    @JsonIgnore
     @ManyToOne
     private Customer customer;
 
+    @JsonIgnore
     @ManyToOne
     private Salesman salesman;
 

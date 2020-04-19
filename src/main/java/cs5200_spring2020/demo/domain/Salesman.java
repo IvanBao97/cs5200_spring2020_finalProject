@@ -1,5 +1,7 @@
 package cs5200_spring2020.demo.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -7,6 +9,7 @@ import java.util.List;
 public class Salesman extends User {
     private int foundYear;
     //self-reference
+    @JsonIgnore
     @ManyToOne
     private Salesman supervisor;
     @OneToMany(mappedBy="supervisor")

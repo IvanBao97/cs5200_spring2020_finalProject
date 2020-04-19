@@ -3,9 +3,7 @@ package cs5200_spring2020.demo.controller;
 import cs5200_spring2020.demo.domain.Message;
 import cs5200_spring2020.demo.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -14,22 +12,38 @@ public class MessageController {
     @Autowired
     MessageRepository messageRepository;
 
-    @GetMapping("/message")
+    @PostMapping("/api/message")
+    public Message createMessage(@RequestBody Message message) {
+        return messageRepository.save(message);
+    }
+
+    @PutMapping("/api/message/{msgId}")
+    public Message updateMessage(
+            @PathVariable("msgId") int id,
+            @RequestBody Message newMessage) {
+        Message message = messageRepository.findMessageById(id);
+        if(newMessage.getText() != null){
+            message.setText(newMessage.getText());
+        }
+        return messageRepository.save(message);
+    }
+
+    @GetMapping("/api/message")
     public List<Message> findAllMessages(){
         return messageRepository.findAllMessages();
     }
 
-    @GetMapping("/message/{mid}")
+    @GetMapping("/api/message/{mid}")
     public Message findMessageById(@PathVariable("mid") Integer mid){
         return messageRepository.findMessageById(mid);
     }
 
-    @GetMapping("/message/delete")
+    @DeleteMapping("/api/message")
     public void deleteAllMessages(){
         messageRepository.deleteAllMessages();
     }
 
-    @GetMapping("/message/delete/{mid}")
+    @DeleteMapping("/api/message/{mid}")
     public void deleteMessageById(@PathVariable("mid") Integer mid){
         messageRepository.deleteMessageById(mid);
     }

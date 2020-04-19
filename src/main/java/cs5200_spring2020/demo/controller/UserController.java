@@ -3,10 +3,7 @@ package cs5200_spring2020.demo.controller;
 import cs5200_spring2020.demo.domain.User;
 import cs5200_spring2020.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,48 +12,72 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
-    @GetMapping("/user/create/alice")
-    public User createAlice(){
-        User admin = new User(
-                "admin",
-                "admin",
-                "admin@husky.neu.edu",
-                "admin",
-                null,
-                "11111111",
-                User.Role.Admin
-        );
-        userRepository.save(admin);
-        return admin;
+    //Create User
+    @PostMapping("/api/user")
+    public User createUser(@RequestBody User user) {
+        return userRepository.save(user);
     }
 
-    @GetMapping("/user/{uid}/update/{name}")
-    public User updateUserName(
-            @PathVariable("uid") Integer userId,
-            @PathVariable("name") String name
-    ){
-        User user = userRepository.findUserById(userId);
-        user.setName(name);
-        userRepository.save(user);
-        return user;
+    //Update User
+    @PutMapping("/api/user/{userId}")
+    public User updateUser(
+            @PathVariable("userId") int id,
+            @RequestBody User newUser) {
+        User user = userRepository.findUserById(id);
+        if(newUser.getName() != null){
+            user.setUsername(newUser.getUsername());
+        }
+        if(newUser.getPassword() != null){
+            user.setPassword(newUser.getPassword());
+        }
+        if(newUser.getEmail() != null){
+            user.setEmail(newUser.getEmail());
+        }
+        if(newUser.getName() != null){
+            user.setName(newUser.getName());
+        }
+        if(newUser.getPhone() != null){
+            user.setPhone(newUser.getPhone());
+        }
+        if(newUser.getEnable() != null){
+            user.setEnable(newUser.getEnable());
+        }
+        if(newUser.getRole() != null){
+            user.setRole(newUser.getRole());
+        }
+
+        return userRepository.save(user);
     }
 
-    @GetMapping("/user")
+    //FindAllUsers
+    @GetMapping("/api/user")
     public List<User> findAllUsers(){
         return userRepository.findAllUsers();
     }
 
-    @GetMapping("/user/{uid}")
+    //FindUserById
+    @GetMapping("/api/user/id/{uid}")
     public User findUserById(@PathVariable("uid") Integer uid){
         return userRepository.findUserById(uid);
     }
 
-    @GetMapping("/user/delete")
+    //FindUserByUsername
+    @GetMapping("/api/user/username/{username}")
+    public List<User> findUserByUsername(@PathVariable(name="username") String username) {
+        if(username != null) {
+            return userRepository.findUserByUsername(username);
+        }
+        return userRepository.findAllUsers();
+    }
+
+    //DeleteAllUsers
+    @DeleteMapping("/api/user")
     public void deleteAllUsers(){
         userRepository.deleteAllUsers();
     }
 
-    @GetMapping("/user/delete/{uid}")
+    //DeleteUserById
+    @DeleteMapping("/api/user/{uid}")
     public void deleteUserById(@PathVariable("uid") Integer uid){
         userRepository.deleteUserById(uid);
     }

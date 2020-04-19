@@ -21,8 +21,7 @@ public class CarModel {
     @ManyToMany(mappedBy = "carModels")
     private List<Salesman> salesmen;
 
-    public CarModel() {
-    }
+    public CarModel() { }
 
     public int getId() {
         return id;

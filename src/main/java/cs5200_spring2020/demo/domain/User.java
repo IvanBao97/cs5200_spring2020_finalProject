@@ -1,5 +1,7 @@
 package cs5200_spring2020.demo.domain;
 
+import org.hibernate.annotations.DiscriminatorOptions;
+
 import javax.persistence.*;
 
 @Entity
