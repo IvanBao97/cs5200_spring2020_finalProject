@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-//import cs5200_spring2020.demo.domain.*;
-
 @RestController
 public class CarModelController {
     @Autowired
@@ -33,7 +31,7 @@ public class CarModelController {
     }
 
     //Update Carmodel
-    @PutMapping ("/api/carmodel/{id}")
+    @PutMapping("/api/carmodel/{id}")
     public CarModel updateCarModelById (@PathVariable("id") int id, @RequestBody CarModel carmodel_new){
         CarModel carmodel = carModelRepository.findCarModelById(id);
         if (carmodel_new.getName()!= null)
@@ -42,8 +40,8 @@ public class CarModelController {
             carmodel.setYear(carmodel_new.getYear());
         if (carmodel_new.getColor()!= null)
             carmodel.setColor(carmodel_new.getColor());
-        if (carmodel_new.getVin()!= null)
-            carmodel.setVin(carmodel_new.getVin());
+        if (carmodel_new.getVIN()!= null)
+            carmodel.setVIN(carmodel_new.getVIN());
         if (carmodel_new.getType()!= null)
             carmodel.setType(carmodel_new.getType());
         if (carmodel_new.getMaker()!= null)
@@ -137,9 +135,9 @@ public class CarModelController {
 
     // Delete Carmodel by Id
     @DeleteMapping(value = "/api/carmodel/{id}")
-        public void deleteCarModelById(@PathVariable("id") int id) {
-            carModelRepository.deleteCarModelById(id);
-        }
+    public void deleteCarModelById(@PathVariable("id") int id) {
+        carModelRepository.deleteCarModelById(id);
+    }
 
     // Delete All Carmodel
     @DeleteMapping("/api/carmodel")

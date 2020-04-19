@@ -1,5 +1,7 @@
 package com.neu.cs5200.buycar.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -13,6 +15,7 @@ public class Address {
     private String state;
     private String zipcode;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "address", cascade = {CascadeType.MERGE, CascadeType.REFRESH}, optional = false)
     private Salesman salesman;
 

@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-//import cs5200_spring2020.demo.domain.*;
-
 @RestController
 public class MakerController {
     @Autowired

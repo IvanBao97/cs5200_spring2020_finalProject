@@ -12,6 +12,7 @@ public class Maker {
     private String name;
     private String country;
 
+
     @OneToMany(mappedBy = "maker")
     private List<CarModel> carModels;
 

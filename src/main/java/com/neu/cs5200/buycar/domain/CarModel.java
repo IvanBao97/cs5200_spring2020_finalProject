@@ -11,29 +11,21 @@ public class CarModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private String VIN;
     private int year;
     private String name;
     private String color;
-    private String vin;
     private Customer.CarType type;
 
-    @ManyToOne
     @JsonIgnore
+    @ManyToOne
     private Maker maker;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "carModels")
     private List<Salesman> salesmen;
 
-    public CarModel() {
-    }
-
-    public String getVin() {
-        return vin;
-    }
-
-    public void setVin(String vin) {
-        this.vin = vin;
-    }
+    public CarModel() { }
 
     public int getId() {
         return id;
@@ -41,6 +33,14 @@ public class CarModel {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getVIN() {
+        return VIN;
+    }
+
+    public void setVIN(String VIN) {
+        this.VIN = VIN;
     }
 
     public int getYear() {

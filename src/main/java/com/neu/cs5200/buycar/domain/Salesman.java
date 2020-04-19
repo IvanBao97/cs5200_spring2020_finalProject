@@ -15,7 +15,6 @@ public class Salesman extends User {
     @OneToMany(mappedBy="supervisor")
     private List<Salesman> subordinates ;
 
-    @JsonIgnore
     @OneToOne(cascade= CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
@@ -23,7 +22,6 @@ public class Salesman extends User {
     @OneToMany(mappedBy = "salesman")
     private List<Message> messages;
 
-    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "salesman_carModel",joinColumns = @JoinColumn(name = "salesman_id"),
             inverseJoinColumns = @JoinColumn(name = "carModel_id"))

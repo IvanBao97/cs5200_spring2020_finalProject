@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 public interface CarModelRepository extends CrudRepository<CarModel,Integer> {
+
     @Query("select carModel from CarModel carModel")
     public List<CarModel> findAllCarModels();
 
@@ -26,7 +27,7 @@ public interface CarModelRepository extends CrudRepository<CarModel,Integer> {
     @Query("select carmodel from CarModel carmodel where carmodel.color = :color")
     public List<CarModel> findAllCarModelsByColor(@Param("color") String color);
 
-    @Query("select carmodel from CarModel carmodel where carmodel.vin = :vin")
+    @Query("select carmodel from CarModel carmodel where carmodel.VIN = :vin")
     public CarModel findCarModelByVin(@Param("vin") String vin);
 
     @Query("select carmodel from CarModel carmodel where carmodel.type = :type")
@@ -41,4 +42,5 @@ public interface CarModelRepository extends CrudRepository<CarModel,Integer> {
     @Modifying
     @Query("delete from CarModel carmodel")
     public void deleteAllCarModel();
+
 }
