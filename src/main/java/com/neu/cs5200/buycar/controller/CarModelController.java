@@ -30,6 +30,16 @@ public class CarModelController {
         return carModelRepository.save(carmodel);
     }
 
+    // Create CarModels
+    @PostMapping("/api/carmodels")
+    public void createCarModels
+    (@RequestBody List<CarModel> carmodels) {
+        carModelRepository.saveAll(carmodels);
+    }
+//        for (CarModel carmodel: carmodels)
+//            carModelRepository.save(carmodel);
+//        return carModelRepository.save(carmodel);
+
     //Update Carmodel
     @PutMapping("/api/carmodel/{id}")
     public CarModel updateCarModelById (@PathVariable("id") int id, @RequestBody CarModel carmodel_new){
