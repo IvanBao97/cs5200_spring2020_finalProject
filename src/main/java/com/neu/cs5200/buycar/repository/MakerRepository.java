@@ -22,6 +22,9 @@ public interface MakerRepository extends CrudRepository<Maker,Integer> {
     @Query("select maker from Maker maker where maker.country = :country")
     public List<Maker> findAllMakersByCountry(@Param("country") String country);
 
+    @Query("select maker from Maker maker where maker.name = :name and maker.country = :country")
+    public Maker findMakerByNameAndCountry(@Param("name") String name, @Param("country") String country);
+
     @Transactional
     @Modifying
     @Query("delete from Maker maker where maker.id =:id")

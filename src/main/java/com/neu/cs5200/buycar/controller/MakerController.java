@@ -4,6 +4,7 @@ import com.neu.cs5200.buycar.domain.CarModel;
 import com.neu.cs5200.buycar.domain.Maker;
 import com.neu.cs5200.buycar.repository.CarModelRepository;
 import com.neu.cs5200.buycar.repository.MakerRepository;
+import org.hibernate.loader.custom.ScalarResultColumnProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +22,31 @@ public class MakerController {
     @PostMapping("/api/maker")
     public Maker createMaker
     (@RequestBody Maker maker) {
+        return makerRepository.save(maker);
+    }
+
+    // Update maker for several car models
+    @PostMapping("/api/maker/{name}/{country}/importall")
+    public Maker updateMakerForCarModels
+    (@PathVariable("name") String name, @PathVariable("country") String country, @RequestBody List<CarModel> carmodels) {
+        Maker maker = makerRepository.findMakerByNameAndCountry(name, country);
+        for (CarModel carmodel_new: carmodels){
+            CarModel carmodel = new CarModel();
+            if (carmodel_new.getName()!= null)
+                carmodel.setName(carmodel_new.getName());
+            if (carmodel_new.getYear()!= 0)
+                carmodel.setYear(carmodel_new.getYear());
+            if (carmodel_new.getColor()!= null)
+                carmodel.setColor(carmodel_new.getColor());
+            if (carmodel_new.getVIN()!= null)
+                carmodel.setVIN(carmodel_new.getVIN());
+            if (carmodel_new.getType()!= null)
+                carmodel.setType(carmodel_new.getType());
+            carmodel.setMaker(maker);
+            maker.getCarModels().add(carmodel);
+            carModelRepository.save(carmodel);
+            makerRepository.save(maker);
+        }
         return makerRepository.save(maker);
     }
 
