@@ -8,7 +8,7 @@ import org.hibernate.loader.custom.ScalarResultColumnProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.*;
 
 @RestController
 public class MakerController {
@@ -25,11 +25,16 @@ public class MakerController {
         return makerRepository.save(maker);
     }
 
-    // Update maker for several car models
+    // Create maker for several car models
     @PostMapping("/api/maker/{name}/{country}/importall")
     public Maker updateMakerForCarModels
     (@PathVariable("name") String name, @PathVariable("country") String country, @RequestBody List<CarModel> carmodels) {
-        Maker maker = makerRepository.findMakerByNameAndCountry(name, country);
+        Maker maker = new Maker() ;
+        maker.setName(name);
+        maker.setCountry(country);
+        List carmodels_new = new ArrayList<CarModel>();
+        maker.setCarModels(carmodels_new);
+        makerRepository.save(maker);
         for (CarModel carmodel_new: carmodels){
             CarModel carmodel = new CarModel();
             if (carmodel_new.getName()!= null)
@@ -47,7 +52,7 @@ public class MakerController {
             carModelRepository.save(carmodel);
             makerRepository.save(maker);
         }
-        return makerRepository.save(maker);
+        return maker;
     }
 
     // Update Maker
