@@ -32,8 +32,7 @@ public class MakerController {
         Maker maker = new Maker() ;
         maker.setName(name);
         maker.setCountry(country);
-        List carmodels_new = new ArrayList<CarModel>();
-        maker.setCarModels(carmodels_new);
+        maker.setCarModels(new ArrayList<CarModel>());
         makerRepository.save(maker);
         for (CarModel carmodel_new: carmodels){
             CarModel carmodel = new CarModel();
